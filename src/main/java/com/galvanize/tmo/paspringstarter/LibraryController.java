@@ -1,6 +1,7 @@
 package com.galvanize.tmo.paspringstarter;
 
 import com.galvanize.tmo.paspringstarter.dto.BookDTO;
+import com.galvanize.tmo.paspringstarter.dto.BookResponseDTO;
 import com.galvanize.tmo.paspringstarter.entity.Book;
 import com.galvanize.tmo.paspringstarter.impl.LibraryServiceImpl;
 import org.slf4j.Logger;
@@ -42,11 +43,13 @@ public class LibraryController {
     }
 
     @GetMapping(value = "/api/books")
-    public ResponseEntity<List<Book>> listBooks()
+    public ResponseEntity<BookResponseDTO> listBooks()
     {
         logger.info(">> listBooks():");
         List<Book> books = libraryService.listAllBooks();
-        return new ResponseEntity<>(books, HttpStatus.OK);
+        BookResponseDTO bookResponseDTO = new BookResponseDTO();
+        bookResponseDTO.setBooks(books);
+        return new ResponseEntity<>(bookResponseDTO, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/api/books")
