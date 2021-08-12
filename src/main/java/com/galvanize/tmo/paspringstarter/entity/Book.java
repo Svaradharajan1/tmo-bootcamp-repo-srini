@@ -9,8 +9,9 @@ import java.io.Serializable;
 @Entity
 public class Book implements Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id
     private Integer id;
+
     private String author;
     private String title;
     private Integer yearPublished;

@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface LibraryService {
 
-    Book addBook(BookDTO book);
+    BookDTO addBook(BookDTO book);
 
-    List<Book> listAllBooks();
+    List<BookDTO> listAllBooks();
 
     void deleteBooks();
 

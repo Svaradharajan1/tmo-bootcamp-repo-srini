@@ -7,11 +7,20 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BookDTO implements Serializable {
 
+    private Integer id;
     private String author;
     private String title;
     private Integer yearPublished;
 
     public BookDTO() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getAuthor() {

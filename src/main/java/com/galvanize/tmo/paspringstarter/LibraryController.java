@@ -35,10 +35,10 @@ public class LibraryController {
     }
 
     @PostMapping(value = "/api/books")
-    public ResponseEntity<Book> addBook(@RequestBody BookDTO bookDTO)
+    public ResponseEntity<BookDTO> addBook(@RequestBody BookDTO bookDTO)
     {
         logger.info(">> addBook():");
-        Book book = libraryService.addBook(bookDTO);
+        BookDTO book = libraryService.addBook(bookDTO);
         return new ResponseEntity<>(book, HttpStatus.CREATED);
     }
 
@@ -46,7 +46,7 @@ public class LibraryController {
     public ResponseEntity<BookResponseDTO> listBooks()
     {
         logger.info(">> listBooks():");
-        List<Book> books = libraryService.listAllBooks();
+        List<BookDTO> books = libraryService.listAllBooks();
         BookResponseDTO bookResponseDTO = new BookResponseDTO();
         bookResponseDTO.setBooks(books);
         return new ResponseEntity<>(bookResponseDTO, HttpStatus.OK);

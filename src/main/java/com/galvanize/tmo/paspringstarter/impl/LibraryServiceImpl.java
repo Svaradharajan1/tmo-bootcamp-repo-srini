@@ -10,7 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -21,6 +24,9 @@ public class LibraryServiceImpl implements LibraryService {
 
     private BookRepository bookRepository;
 
+    private List<BookDTO> bookDTOList = new ArrayList<>();
+    private Integer id=0;
+
     @Autowired
     public LibraryServiceImpl(BookRepository bookRepository)
     {
@@ -28,24 +34,33 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public Book addBook(BookDTO bookDTO) {
+    public BookDTO addBook(BookDTO bookDTO) {
         logger.info(">> addBook()");
-        Book book = LibraryUtil.getBookEntityFromBookDTO(bookDTO);
-        return bookRepository.save(book);
+
+//        List<Book> books = bookRepository.findAll();
+//        Book book = LibraryUtil.getBookEntityFromBookDTO(bookDTO);
+//        if (!CollectionUtils.isEmpty(books)) {
+//            books.sort(Comparator.comparing(Book::getId));
+//            book.setId(books.get(books.size() - 1).getId() + 1);
+//        }
+        id++;
+        bookDTO.setId(id);
+        bookDTOList.add(bookDTO);
+        return bookDTO;
     }
 
     @Override
-    public List<Book> listAllBooks() {
+    public List<BookDTO> listAllBooks() {
         logger.info(">> listAllBooks()");
-        List<Book> books = bookRepository.findAll();
-        books.sort(Comparator.comparing(Book::getTitle));
-        return books;
+        bookDTOList.sort(Comparator.comparing(BookDTO::getTitle));
+        return bookDTOList;
     }
 
     @Override
     public void deleteBooks() {
         logger.info(">> deleteBooks()");
-        bookRepository.deleteAll();
+        bookDTOList.clear();
+        id=0;
         logger.info("-- deleteBooks(): deleted all books.");
     }
 }
