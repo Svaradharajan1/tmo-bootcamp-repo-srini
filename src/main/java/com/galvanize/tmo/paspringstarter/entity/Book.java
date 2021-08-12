@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 public class Book implements Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private String author;
     private String title;
