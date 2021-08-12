@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Component
@@ -36,7 +37,9 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public List<Book> listAllBooks() {
         logger.info(">> listAllBooks()");
-        return bookRepository.findAll();
+        List<Book> books = bookRepository.findAll();
+        books.sort(Comparator.comparing(Book::getTitle));
+        return books;
     }
 
     @Override
